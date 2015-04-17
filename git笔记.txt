@@ -13,4 +13,10 @@ git命令
 	git reset --hard HEAD : 恢复到版本库中当前版本
 	git reset --hard HEAD^ ：恢复到版本库中上一个版本
 	git reset --hard HEAD~10 ：恢复到版本库中往上第10个版本
-	git reset --hard "commit_id" : 恢复到指定版本号的版本，commit_id通过git log查看
+	git reset --hard "commit_id" : 恢复到指定版本号的版本，commit_id通过git log/reflog查看
+	git reset HEAD a.txt : 恢复a.txt文件版本（HEAD用法同上）
+	git checkout -- a.txt : 覆盖工作区的文件（将缓存区或版本库中a.txt覆盖工作区的a.txt）、git checkout -- file命令中的--很重要，没有--，就变成了“创建一个新分支”的命令。
+	git rm a.txt : 删除版本库中的a.txt，需要commit提交确认。
+
+远程仓库
+	
