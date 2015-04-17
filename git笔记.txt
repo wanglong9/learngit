@@ -19,4 +19,11 @@ git命令
 	git rm a.txt : 删除版本库中的a.txt，需要commit提交确认。
 
 远程仓库
-	
+	链接远程命令	
+	git remote add origin https://github.com/wanglong9/learngit.git
+	上传本地版本
+	git push [-u] origin master
+
+	克隆远程服务器版本
+	git clone https://github.com/wanglong9/gitskills.git
+
