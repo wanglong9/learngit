@@ -1,4 +1,4 @@
-git包含三个区域
+﻿git包含三个区域
 	1、工作区
 	2、暂存区
 	3、版本库
@@ -34,3 +34,6 @@ git基本命令
 	git branch ：查看当前分支（会列出所有分支，以*号开头的为当前分支）
 	git merge dev：将dev分支与master合并
 	git branch -d dev：删除dev分支
+
+解决冲突	
+	git
