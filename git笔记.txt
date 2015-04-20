@@ -2,7 +2,7 @@ git包含三个区域
 	1、工作区
 	2、暂存区
 	3、版本库
-git命令
+git基本命令
 	git init ：初始化文件夹，将该文件夹变为Git管理仓库
 	git add a.txt ：将a.txt文件提交到工作区
 	git commit -m "set commit logs" ：将暂存区中的修改全部提交到版本区，-m后加提交日志
@@ -27,3 +27,10 @@ git命令
 	克隆远程服务器版本
 	git clone https://github.com/wanglong9/gitskills.git
 
+创建与合并分支
+	git branch dev :创建分支dev
+	git checkout dev：切换到dev分区
+	git checkout -b dev：上述2个命令合并
+	git branch ：查看当前分支（会列出所有分支，以*号开头的为当前分支）
+	git merge dev：将dev分支与master合并
+	git branch -d dev：删除dev分支
