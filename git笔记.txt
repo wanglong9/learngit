@@ -20,13 +20,14 @@ git基本命令
 
 远程仓库
 	链接远程命令	
-	git remote add origin https://github.com/wanglong9/learngit.git
-	上传本地版本
+	【https协议】git remote add origin https://github.com/wanglong9/learngit.git
+	【ssh协议】git remote add origin git@github.com:wanglong9/learngit.git
+	上传本地master分支的版本到远程库origin
 	git push [-u] origin master
 
 	克隆远程服务器版本
-	git clone https://github.com/wanglong9/gitskills.git
-
+	【https协议】git clone https://github.com/wanglong9/gitskills.git
+	【ssh协议】 git clone git@github.com:wanglong9/learngit.git	
 创建与合并分支
 	git branch dev :创建分支dev
 	git checkout dev：切换到dev分区
@@ -51,3 +52,65 @@ bug分支（下列命令适用于修复项目bug的场景）
 
 Feature分支（适用于开发了一个新分支后，又不需要该分支的情况）
 	git branch -D dev：删除未合并的分支
+
+多人协作
+	git remote [-v]: 查看远程库信息,带v表示详细信息
+	git branch --set-upstream dev origin/dev ：将本地dev分支与远程origin/dev关联
+	git pull ：把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送
+	git push origin dev ：向远程库origin推送本地dev分支
+
+	多人协作的工作模式通常是这样：
+		1、首先，可以试图用git push origin branch-name推送自己的修改；
+		2、如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+		3、如果合并有冲突，则解决冲突，并在本地提交；
+		4、没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+	    如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+	这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+
+标签管理
+	git tag <name>：用于给当前分支新建一个标签，默认为HEAD，也可以指定一个commit id
+	git tag <name> <commitId>:给某一个指定的提交打标签
+	git tag -a tagname -m "说明文字" commitId ：创建带有说明的标签
+	git tag:查看所有标签
+	git show <tagname> :查看标签信息
+	
+	git push origin <tagname>可以推送一个本地标签；
+	git push origin --tags可以推送全部未推送过的本地标签；
+	git tag -d <tagname>可以删除一个本地标签；
+	git push origin :refs/tags/<tagname>可以删除一个远程标签。
+	
+自定义git
+	git config --global color.ui true：开启git客户端文字的颜色
+
+忽略特殊文件
+	有些时候，你必须把某些文件放到Git工作目录中，但又不能提交它们，比如保存了数据库密码的配置文件啦，等等，每次git status都会显示“Untracked files ...”，有强迫症的童鞋心里肯定不爽。
+	好在Git考虑到了大家的感受，这个问题解决起来也很简单，在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件。
+
+配置别名
+	git config [--global] alias.st status：给status命令取别名位st,global表示全局设置
+	git status =git st的效果是相同的
+
+	git config --global alias.co checkout
+	git config --global alias.ci commit
+	git config --global alias.br branch
+
+	配置别名其实是修改了.git/config文件，如果想删除别名，可以修改该文件中对应的行即可。
+
+搭建Git服务器（CentOS）
+	1、安装git
+		sudo yum -y install git
+	2、创建用户
+		sudo adduser git
+	3、创建证书登录
+		和git用户打通ssh
+	4、初始化git仓库,在/usr目录下初始化一个sample.git仓库
+		sudo git init --bare sample.git
+		sudo chown -R git:git sample.git
+	5、禁止Shell登陆，修改/etc/passwd
+		将
+			git:x:1001:1001:,,,:/home/git:/bin/bash
+		改为
+			git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
+	6、克隆远程仓库
+		【ssh协议】git clone git@server:/usr/samlpe.git
+		【http协议】git clone https://github.com/wanglong9/gitskills.git
