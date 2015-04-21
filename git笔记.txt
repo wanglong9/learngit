@@ -32,9 +32,22 @@ git基本命令
 	git checkout dev：切换到dev分区
 	git checkout -b dev：上述2个命令合并
 	git branch ：查看当前分支（会列出所有分支，以*号开头的为当前分支）
-	git merge dev：将dev分支与master合并
+	git merge dev：在master分支的工作环境下，将dev分支与master合并（Git会用Fast forward模式，这种模式下，删除分支后，会丢掉分支信息。）
 	git branch -d dev：删除dev分支
 
 解决冲突	
-	git
+	git merge --no-ff -m "xxxx" dev: 将dev分支与master合并，并提交一个commit，--no-ff表示忽略Fast forward模式，这样删除该分支后，仍能找回来，不会丢失分支信息
+	提示Automatic merge failed; fix conflicts and then commit the result.
+	则修改文件去除冲突地方，再执行add和commit命令
+	当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+	用git log --graph命令可以看到分支合并图。
 
+bug分支（下列命令适用于修复项目bug的场景）
+	git stash ：保存当前工作区状态（相当于对当前工作区做了一个快照，适用于需要切换分支，但又不能提交当前分支的场景）
+	git stash list ：查看快照列表和对应的版本号
+	git stash apply [版本号]：恢复快照版本
+	git stash drop [版本号]： 删除快照版本
+	git stash pop [版本号]： 回复并删除快照版本（合并apply和pop的命令）
+
+Feature分支（适用于开发了一个新分支后，又不需要该分支的情况）
+	git branch -D dev：删除未合并的分支
